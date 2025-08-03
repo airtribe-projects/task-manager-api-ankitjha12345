@@ -2,10 +2,8 @@ const express = require('express');
 const app = express();
 const port = 3000;
 const fs = require('fs');
-const bodyParser = require('body-parser');
 
 app.use(express.json());
-app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }));
 
 let taskData = JSON.parse(fs.readFileSync('task.json'));
@@ -28,7 +26,7 @@ app.get('/tasks/:id', (req, res) => {
 
 //create new task
 
-app.post('tasks',[
+app.post('/tasks',[
     body('title').trim().notEmpty().withMessage('Title is required'),
     body('description').trim().notEmpty().withMessage('Description is required'),
     body('completed').optional().isBoolean().withMessage('Completed must be a boolean'),
@@ -62,7 +60,7 @@ app.delete('/tasks/:id', (req, res) => {
 
 //updat the task
 
-app.put('tasks/:id',[
+app.put('/tasks/:id',[
     body('title').trim().notEmpty().withMessage('Title is required'),
     body('description').trim().notEmpty().withMessage('Description is required'),
     body('completed').optional().isBoolean().withMessage('Completed must be a boolean'),
